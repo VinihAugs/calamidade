@@ -185,6 +185,51 @@ const Tracker = () => {
     setEditingCharacter(null);
   };
 
+  const handleDuplicate = (id: string) => {
+    const characterToDuplicate = characters.find(c => c.id === id);
+    if (characterToDuplicate) {
+      const originalName = characterToDuplicate.name;
+      const baseName = originalName.replace(/\s+\d+$/, '').trim();
+      
+      const existingMonsters = characters.filter(c => 
+        c.type === 'monster' && 
+        (c.name === baseName || c.name.startsWith(`${baseName} `))
+      );
+      
+      const hasOriginal = existingMonsters.some(m => m.name === baseName);
+      const numberedMonsters = existingMonsters
+        .filter(m => m.name.startsWith(`${baseName} `))
+        .map(m => {
+          const match = m.name.match(/\s+(\d+)$/);
+          return match ? parseInt(match[1]) : 0;
+        })
+        .filter(n => n > 0);
+      
+      let nextNumber = 1;
+      if (numberedMonsters.length > 0) {
+        nextNumber = Math.max(...numberedMonsters) + 1;
+      } else if (hasOriginal) {
+        nextNumber = 1;
+      }
+      
+      const newName = `${baseName} ${nextNumber}`;
+      
+      const duplicatedCharacter: Character = {
+        ...characterToDuplicate,
+        id: crypto.randomUUID(),
+        name: newName,
+        isDefeated: false,
+        hp: characterToDuplicate.maxHp,
+        resistanceActive: false,
+      };
+      
+      const newCharacters = [...characters, duplicatedCharacter].sort(
+        (a, b) => b.initiative - a.initiative
+      );
+      setCharacters(newCharacters);
+    }
+  };
+
   const handleNextTurn = () => {
     const aliveCharacters = characters.filter(c => !c.isDefeated);
     if (aliveCharacters.length === 0) return;
@@ -340,6 +385,7 @@ const Tracker = () => {
           onToggleUnconscious={handleToggleUnconscious}
           onEdit={handleEdit}
           onToggleResistance={handleToggleResistance}
+          onDuplicate={handleDuplicate}
         />
       </main>
 

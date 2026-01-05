@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { Character } from '@/types/character';
 import { ClassIcon } from './ClassIcon';
-import { Shield, ShieldBan, Dice4, Pencil, Trash2, Skull, Heart } from 'lucide-react';
+import { Shield, ShieldBan, Dice4, Pencil, Trash2, Skull, Heart, Copy } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Checkbox } from './ui/checkbox';
@@ -17,6 +17,7 @@ interface CharacterCardProps {
   onEdit?: (id: string) => void;
   onToggleUnconscious?: (id: string) => void;
   onToggleResistance?: (id: string) => void;
+  onDuplicate?: (id: string) => void;
 }
 
 export const CharacterCard = ({
@@ -29,6 +30,7 @@ export const CharacterCard = ({
   onEdit,
   onToggleUnconscious,
   onToggleResistance,
+  onDuplicate,
 }: CharacterCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const damageRef = useRef<HTMLDivElement>(null);
@@ -173,6 +175,20 @@ export const CharacterCard = ({
                   className="h-6 w-6 p-0 text-muted-foreground hover:text-primary"
                 >
                   <Pencil className="w-4 h-4" />
+                </Button>
+              )}
+              {character.type === 'monster' && onDuplicate && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDuplicate(character.id);
+                  }}
+                  className="h-6 w-6 p-0 text-muted-foreground hover:text-primary"
+                  title="Duplicar monstro"
+                >
+                  <Copy className="w-4 h-4" />
                 </Button>
               )}
               <Button

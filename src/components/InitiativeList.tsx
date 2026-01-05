@@ -18,6 +18,7 @@ interface InitiativeListProps {
   onToggleUnconscious?: (id: string) => void;
   onEdit?: (id: string) => void;
   onToggleResistance?: (id: string) => void;
+  onDuplicate?: (id: string) => void;
 }
 
 export const InitiativeList = ({
@@ -31,6 +32,7 @@ export const InitiativeList = ({
   onToggleUnconscious,
   onEdit,
   onToggleResistance,
+  onDuplicate,
 }: InitiativeListProps) => {
   const listRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -157,6 +159,7 @@ export const InitiativeList = ({
             onToggleUnconscious={onToggleUnconscious}
             onEdit={onEdit}
             onToggleResistance={onToggleResistance}
+            onDuplicate={onDuplicate}
           />
         </div>
       ))}
