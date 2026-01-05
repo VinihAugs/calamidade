@@ -125,6 +125,21 @@ export const InitiativeList = ({
         return visibleIndex >= 0 ? visibleIndex : 0;
       })();
 
+  useEffect(() => {
+    if (isCombatMode && visibleCurrentTurn >= 0) {
+      const activeItem = itemRefs.current[visibleCurrentTurn];
+      if (activeItem) {
+        setTimeout(() => {
+          activeItem.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest',
+          });
+        }, 100);
+      }
+    }
+  }, [visibleCurrentTurn, isCombatMode]);
+
   if (visibleCharacters.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">

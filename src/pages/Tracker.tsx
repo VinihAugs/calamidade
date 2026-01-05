@@ -191,23 +191,23 @@ const Tracker = () => {
       const originalName = characterToDuplicate.name;
       const baseName = originalName.replace(/\s+\d+$/, '').trim();
       
-      const existingMonsters = characters.filter(c => 
-        c.type === 'monster' && 
+      const existingCharacters = characters.filter(c => 
+        c.type === characterToDuplicate.type && 
         (c.name === baseName || c.name.startsWith(`${baseName} `))
       );
       
-      const hasOriginal = existingMonsters.some(m => m.name === baseName);
-      const numberedMonsters = existingMonsters
-        .filter(m => m.name.startsWith(`${baseName} `))
-        .map(m => {
-          const match = m.name.match(/\s+(\d+)$/);
+      const hasOriginal = existingCharacters.some(c => c.name === baseName);
+      const numberedCharacters = existingCharacters
+        .filter(c => c.name.startsWith(`${baseName} `))
+        .map(c => {
+          const match = c.name.match(/\s+(\d+)$/);
           return match ? parseInt(match[1]) : 0;
         })
         .filter(n => n > 0);
       
       let nextNumber = 1;
-      if (numberedMonsters.length > 0) {
-        nextNumber = Math.max(...numberedMonsters) + 1;
+      if (numberedCharacters.length > 0) {
+        nextNumber = Math.max(...numberedCharacters) + 1;
       } else if (hasOriginal) {
         nextNumber = 1;
       }

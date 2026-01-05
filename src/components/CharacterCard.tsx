@@ -177,7 +177,7 @@ export const CharacterCard = ({
                   <Pencil className="w-4 h-4" />
                 </Button>
               )}
-              {character.type === 'monster' && onDuplicate && (
+              {onDuplicate && (
                 <Button
                   size="sm"
                   variant="ghost"
@@ -186,7 +186,7 @@ export const CharacterCard = ({
                     onDuplicate(character.id);
                   }}
                   className="h-6 w-6 p-0 text-muted-foreground hover:text-primary"
-                  title="Duplicar monstro"
+                  title="Duplicar personagem"
                 >
                   <Copy className="w-4 h-4" />
                 </Button>
