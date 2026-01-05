@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 20 15% 8%;
+    --foreground: 40 30% 90%;
+
+    --card: 30 20% 12%;
+    --card-foreground: 40 30% 90%;
+
+    --popover: 30 20% 10%;
+    --popover-foreground: 40 30% 90%;
+
+    --primary: 38 70% 50%;
+    --primary-foreground: 20 15% 8%;
+
+    --secondary: 30 15% 18%;
+    --secondary-foreground: 40 30% 90%;
+
+    --muted: 30 10% 20%;
+    --muted-foreground: 30 15% 55%;
+
+    --accent: 38 70% 50%;
+    --accent-foreground: 20 15% 8%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 40 30% 95%;
+
+    --success: 120 40% 35%;
+    --success-foreground: 40 30% 95%;
+
+    --border: 30 15% 22%;
+    --input: 30 15% 22%;
+    --ring: 38 70% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens for the app */
+    --parchment: 35 35% 85%;
+    --parchment-dark: 32 25% 75%;
+    --blood: 0 70% 40%;
+    --blood-light: 0 60% 55%;
+    --gold: 38 70% 50%;
+    --gold-light: 42 80% 65%;
+    --gold-dark: 35 60% 35%;
+    --steel: 210 10% 45%;
+    --steel-dark: 210 10% 25%;
+    --shadow-medieval: 0 8px 32px -8px hsla(20, 15%, 5%, 0.8);
+
+    --sidebar-background: 20 15% 8%;
+    --sidebar-foreground: 40 30% 90%;
+    --sidebar-primary: 38 70% 50%;
+    --sidebar-primary-foreground: 20 15% 8%;
+    --sidebar-accent: 30 15% 18%;
+    --sidebar-accent-foreground: 40 30% 90%;
+    --sidebar-border: 30 15% 22%;
+    --sidebar-ring: 38 70% 50%;
+  }
+
+  .dark {
+    --background: 20 15% 8%;
+    --foreground: 40 30% 90%;
+    --card: 30 20% 12%;
+    --card-foreground: 40 30% 90%;
+    --popover: 30 20% 10%;
+    --popover-foreground: 40 30% 90%;
+    --primary: 38 70% 50%;
+    --primary-foreground: 20 15% 8%;
+    --secondary: 30 15% 18%;
+    --secondary-foreground: 40 30% 90%;
+    --muted: 30 10% 20%;
+    --muted-foreground: 30 15% 55%;
+    --accent: 38 70% 50%;
+    --accent-foreground: 20 15% 8%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 40 30% 95%;
+    --border: 30 15% 22%;
+    --input: 30 15% 22%;
+    --ring: 38 70% 50%;
+    --sidebar-background: 20 15% 8%;
+    --sidebar-foreground: 40 30% 90%;
+    --sidebar-primary: 38 70% 50%;
+    --sidebar-primary-foreground: 20 15% 8%;
+    --sidebar-accent: 30 15% 18%;
+    --sidebar-accent-foreground: 40 30% 90%;
+    --sidebar-border: 30 15% 22%;
+    --sidebar-ring: 38 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+  }
+}
+
+@layer components {
+  .font-medieval {
+    font-family: 'Cinzel', serif;
+  }
+
+  .card-parchment {
+    @apply bg-card border border-border rounded-lg;
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(30 18% 10%) 100%);
+    box-shadow: var(--shadow-medieval);
+  }
+
+  .btn-medieval {
+    @apply font-medieval font-semibold tracking-wide;
+    background: linear-gradient(180deg, hsl(var(--gold-light)) 0%, hsl(var(--gold)) 50%, hsl(var(--gold-dark)) 100%);
+    text-shadow: 0 1px 2px hsla(20, 15%, 5%, 0.3);
+  }
+
+  .btn-blood {
+    background: linear-gradient(180deg, hsl(var(--blood-light)) 0%, hsl(var(--blood)) 100%);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px hsla(38, 70%, 50%, 0.4), 0 0 40px hsla(38, 70%, 50%, 0.2);
+  }
+
+  .active-turn {
+    @apply glow-gold;
+    border: 2px solid hsl(var(--gold));
+  }
+
+  .defeated {
+    filter: grayscale(1) brightness(0.6);
+  }
+}
+
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px hsla(20, 15%, 5%, 0.5);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 2px 8px hsla(20, 15%, 5%, 0.8);
+  }
+
+  /* Estilização moderna dos spinners de input numérico */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    appearance: textfield;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* Container para os botões de spinner customizados */
+  .number-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .number-input-wrapper input[type="number"] {
+    padding-right: 2.75rem;
+  }
+
+  .number-input-spinner {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .number-input-spinner button {
+    width: 18px;
+    height: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: hsl(var(--secondary));
+    border: 1px solid hsl(var(--border));
+    cursor: pointer;
+    pointer-events: all;
+    transition: all 0.15s ease;
+    color: hsl(var(--muted-foreground));
+    padding: 0;
+    margin: 0;
+  }
+
+  .number-input-spinner button:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: none;
+  }
+
+  .number-input-spinner button:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top: none;
+  }
+
+  .number-input-spinner button:hover {
+    background: hsl(var(--primary) / 0.15);
+    border-color: hsl(var(--primary) / 0.5);
+    color: hsl(var(--primary));
+  }
+
+  .number-input-spinner button:active {
+    background: hsl(var(--primary) / 0.25);
+    transform: scale(0.92);
+  }
+
+  .number-input-spinner button svg {
+    width: 10px;
+    height: 10px;
+    stroke-width: 2.5;
+  }
+}
