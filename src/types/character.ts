@@ -15,11 +15,11 @@ export interface Character {
   name: string;
   type: CharacterType;
   characterClass: CharacterClass;
-  ac: number; // Classe de Armadura
+  ac: number;
   hp: number;
   maxHp: number;
   initiative: number;
-  resistance?: number; // Resistência (opcional, para NPCs)
-  resistanceActive?: boolean; // Se a resistência está ativa (para NPCs)
+  resistance?: number;
+  resistanceActive?: boolean;
   isDefeated: boolean;
 }

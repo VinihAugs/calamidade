@@ -56,7 +56,6 @@ export const AddCharacterModal = ({
   const [resistance, setResistance] = useState('0');
   const [maxHp, setMaxHp] = useState('20');
 
-  // Load editing character data
   useEffect(() => {
     if (editingCharacter) {
       setName(editingCharacter.name);
@@ -67,7 +66,6 @@ export const AddCharacterModal = ({
       setResistance((editingCharacter.resistance || 0).toString());
       setMaxHp(editingCharacter.maxHp.toString());
     } else {
-      // Reset form when not editing
       setName('');
       setType(defaultType);
       setCharacterClass('warrior');
@@ -92,7 +90,7 @@ export const AddCharacterModal = ({
     const characterData: Omit<Character, 'id' | 'isDefeated'> = {
       name: name.trim(),
       type: currentType,
-      characterClass: currentType === 'npc' || currentType === 'monster' ? 'warrior' : characterClass, // NPCs e Monstros não precisam de classe, mas mantemos para compatibilidade
+      characterClass: currentType === 'npc' || currentType === 'monster' ? 'warrior' : characterClass,
       ac: parseInt(ac) || 10,
       hp: hpValue,
       maxHp: maxHpValue,
@@ -109,7 +107,6 @@ export const AddCharacterModal = ({
       onAdd(characterData);
     }
 
-    // Reset form
     setName('');
     setType(defaultType);
     setCharacterClass('warrior');
@@ -131,10 +128,7 @@ export const AddCharacterModal = ({
       : 'Adicionar Jogador/NPC';
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => {
-      // Não permite fechar clicando fora ou pressionando ESC
-      // Só fecha através dos botões Cancelar, Salvar ou X
-    }}>
+    <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogContent 
         className="card-parchment border-border sm:max-w-md"
         onClose={onClose}
@@ -173,7 +167,6 @@ export const AddCharacterModal = ({
             </div>
           )}
 
-          {/* Classe - apenas para jogadores */}
           {currentType === 'player' && (
             <div className="space-y-2">
               <Label className="text-foreground">Classe</Label>
@@ -220,7 +213,6 @@ export const AddCharacterModal = ({
             />
           </div>
 
-          {/* Campos específicos para NPC e Monstro */}
           {(currentType === 'npc' || currentType === 'monster') && (
             <>
               <div className="space-y-2">

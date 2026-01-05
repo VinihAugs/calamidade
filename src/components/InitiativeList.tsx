@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+// @ts-ignore - GSAP Draggable case sensitivity issue on Windows
 import { Draggable } from 'gsap/Draggable';
 import { Character } from '@/types/character';
 import { CharacterCard } from './CharacterCard';
@@ -35,13 +36,11 @@ export const InitiativeList = ({
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const draggablesRef = useRef<Draggable[]>([]);
 
-  // Filtrar monstros no modo exploração
   const visibleCharacters = isCombatMode 
     ? characters 
     : characters.filter(char => char.type !== 'monster');
 
   useEffect(() => {
-    // Clear previous draggables
     draggablesRef.current.forEach(d => d.kill());
     draggablesRef.current = [];
 
@@ -58,7 +57,7 @@ export const InitiativeList = ({
           },
           onDrag: function() {
             const dragY = this.y;
-            const itemHeight = item.offsetHeight + 12; // 12px gap
+            const itemHeight = item.offsetHeight + 12;
             const newIndex = Math.round(dragY / itemHeight) + index;
             
             items.forEach((otherItem, i) => {
@@ -76,20 +75,17 @@ export const InitiativeList = ({
             let newIndex = Math.round(dragY / itemHeight) + index;
             newIndex = Math.max(0, Math.min(visibleCharacters.length - 1, newIndex));
             
-            // Reset all items
             items.forEach((otherItem) => {
               if (otherItem) {
                 gsap.to(otherItem, { y: 0, scale: 1, boxShadow: '0 8px 32px -8px hsla(20, 15%, 5%, 0.8)', duration: 0.3 });
               }
             });
             
-            // Reorder if position changed
             if (newIndex !== index) {
               const newOrder = [...visibleCharacters];
               const [removed] = newOrder.splice(index, 1);
               newOrder.splice(newIndex, 0, removed);
               
-              // Mapear de volta para a lista completa de personagens
               const fullOrder = [...characters];
               const removedChar = removed;
               const oldIndex = characters.findIndex(c => c.id === removedChar.id);
@@ -118,7 +114,6 @@ export const InitiativeList = ({
     };
   }, [visibleCharacters, isCombatMode, onReorder, characters]);
 
-  // Recalcular índice do turno atual considerando apenas personagens visíveis
   const visibleCurrentTurn = isCombatMode 
     ? currentTurn 
     : (() => {

@@ -30,7 +30,6 @@ const Tracker = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Load data from localStorage on mount
   useEffect(() => {
     try {
       const savedData = localStorage.getItem(STORAGE_KEY);
@@ -51,7 +50,6 @@ const Tracker = () => {
     }
   }, []);
 
-  // Save data to localStorage whenever it changes
   useEffect(() => {
     try {
       const dataToSave = {
@@ -65,7 +63,6 @@ const Tracker = () => {
     }
   }, [characters, isCombatMode, currentTurn]);
 
-  // Mode transition animation
   useEffect(() => {
     const tl = gsap.timeline();
     
@@ -99,7 +96,6 @@ const Tracker = () => {
       isDefeated: false,
     };
     
-    // Insert sorted by initiative
     const newCharacters = [...characters, newCharacter].sort(
       (a, b) => b.initiative - a.initiative
     );
@@ -114,7 +110,6 @@ const Tracker = () => {
     setCharacters(prev => prev.map(char => {
       if (char.id !== id) return char;
       
-      // Aplicar resistência se for NPC ou Monstro e estiver ativa
       let finalDamage = damage;
       if ((char.type === 'npc' || char.type === 'monster') && char.resistanceActive && char.resistance !== undefined) {
         finalDamage = Math.max(0, damage - char.resistance);
@@ -223,10 +218,7 @@ const Tracker = () => {
   };
 
   const handleClearAll = () => {
-    // Limpar localStorage
     localStorage.removeItem(STORAGE_KEY);
-    
-    // Resetar todos os estados
     setCharacters([]);
     setIsCombatMode(false);
     setCurrentTurn(0);
@@ -239,29 +231,24 @@ const Tracker = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Background image - Desktop */}
       <div 
         className="hidden md:block fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
         style={{
           backgroundImage: 'url(/fundo.png)',
         }}
       >
-        {/* Overlay para melhorar legibilidade */}
         <div className="absolute inset-0 bg-background/50" />
       </div>
 
-      {/* Background image - Mobile */}
       <div 
         className="md:hidden fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
         style={{
           backgroundImage: 'url(/homesecundarymobile.png)',
         }}
       >
-        {/* Overlay para melhorar legibilidade */}
         <div className="absolute inset-0 bg-background/50" />
       </div>
 
-      {/* Header */}
       <header
         ref={headerRef}
         className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md transition-colors shadow-lg"
@@ -288,7 +275,6 @@ const Tracker = () => {
             </div>
           </div>
 
-          {/* Mode Toggle & Add Buttons */}
           <div className="flex flex-wrap items-center gap-2">
             <Button
               variant={isCombatMode ? 'default' : 'outline'}
@@ -342,7 +328,6 @@ const Tracker = () => {
         </div>
       </header>
 
-      {/* Content */}
       <main ref={contentRef} className="flex-1 container max-w-2xl mx-auto px-4 py-6">
         <InitiativeList
           characters={characters}
@@ -358,7 +343,6 @@ const Tracker = () => {
         />
       </main>
 
-      {/* Combat Controls Footer */}
       {isCombatMode && characters.length > 0 && (
         <footer className="sticky bottom-0 border-t border-border bg-background/90 backdrop-blur-md shadow-lg">
           <div className="container max-w-2xl mx-auto px-4 py-3 sm:py-4">
@@ -393,7 +377,6 @@ const Tracker = () => {
         </footer>
       )}
 
-      {/* Limpar Mesa Button */}
       {characters.length > 0 && (
         <div className="container max-w-2xl mx-auto px-4 py-6">
           <div className="flex justify-center">
@@ -410,7 +393,6 @@ const Tracker = () => {
         </div>
       )}
 
-      {/* Add Character Modal */}
       <AddCharacterModal
         isOpen={isAddModalOpen}
         onClose={handleCloseModal}

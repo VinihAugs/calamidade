@@ -43,7 +43,6 @@ export const CharacterCard = ({
     setLastDamage(damage);
     setShowDamagePopup(true);
 
-    // Shake animation
     if (cardRef.current) {
       gsap.fromTo(cardRef.current, 
         { x: 0 },
@@ -87,7 +86,6 @@ export const CharacterCard = ({
     return 'bg-destructive';
   };
 
-  // Death animation
   useEffect(() => {
     if (character.isDefeated && cardRef.current) {
       gsap.to(cardRef.current, {
@@ -106,7 +104,6 @@ export const CharacterCard = ({
     }
   }, [character.isDefeated]);
 
-  // Active turn pulse
   useEffect(() => {
     if (isActive && isCombatMode && cardRef.current) {
       gsap.to(cardRef.current, {
@@ -136,7 +133,6 @@ export const CharacterCard = ({
         isPlayerInCombat ? 'cursor-pointer' : ''
       }`}
     >
-      {/* Damage Popup */}
       {showDamagePopup && (
         <div
           ref={damageRef}
@@ -148,7 +144,6 @@ export const CharacterCard = ({
         </div>
       )}
 
-      {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
@@ -165,7 +160,6 @@ export const CharacterCard = ({
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Action buttons - para jogadores, NPCs e monstros (exceto monstro derrotado em combate) */}
           {!(isCombatMode && character.type === 'monster' && character.isDefeated) && (
             <>
               {onEdit && (
@@ -216,13 +210,10 @@ export const CharacterCard = ({
         </div>
       </div>
 
-      {/* Content based on mode and character type */}
       {!isCombatMode ? (
         <>
-          {/* Modo Exploração */}
           {character.type === 'npc' ? (
             <>
-              {/* NPC: Iniciativa, CA e Vida */}
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-2">
@@ -242,7 +233,6 @@ export const CharacterCard = ({
                     </span>
                   </div>
                 </div>
-                {/* Barra de Vida */}
                 <div className="mb-2">
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-1">
@@ -266,7 +256,6 @@ export const CharacterCard = ({
             </>
           ) : (
             <>
-              {/* Jogador: Apenas Iniciativa e CA */}
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -290,7 +279,6 @@ export const CharacterCard = ({
         </>
       ) : character.type === 'npc' ? (
         <>
-          {/* NPC em Combate: Iniciativa, CA, Vida com barra, Resistência */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
@@ -309,7 +297,6 @@ export const CharacterCard = ({
                   {character.ac}
                 </span>
               </div>
-              {/* Resistência ao lado do CA */}
               {character.resistance !== undefined && (
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -329,7 +316,6 @@ export const CharacterCard = ({
               )}
             </div>
 
-            {/* Barra de Vida */}
             <div className="mb-2">
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-1">
@@ -353,7 +339,6 @@ export const CharacterCard = ({
         </>
       ) : character.type === 'monster' ? (
         <>
-          {/* Monstro em Combate: Iniciativa, CA, Vida com barra, Resistência */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
@@ -372,7 +357,6 @@ export const CharacterCard = ({
                   {character.ac}
                 </span>
               </div>
-              {/* Resistência ao lado do CA */}
               {character.resistance !== undefined && (
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -392,7 +376,6 @@ export const CharacterCard = ({
               )}
             </div>
 
-            {/* Barra de Vida */}
             <div className="mb-2">
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-1">
@@ -416,7 +399,6 @@ export const CharacterCard = ({
         </>
       ) : (
         <>
-          {/* Player em Combate: Iniciativa e CA */}
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -438,7 +420,6 @@ export const CharacterCard = ({
         </>
       )}
 
-      {/* Combat Controls */}
       {isCombatMode && character.type === 'player' && (
         <div className="flex items-center justify-center mt-3 pt-3 border-t border-border">
           <Button
@@ -461,7 +442,6 @@ export const CharacterCard = ({
         </div>
       )}
 
-      {/* Combat Controls for non-players */}
       {isCombatMode && character.type !== 'player' && !character.isDefeated && (
         <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border flex-wrap">
           <Input

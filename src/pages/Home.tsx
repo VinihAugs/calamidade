@@ -12,7 +12,6 @@ const Home = () => {
   const iconsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Simple fade-in animation with proper sequencing
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     tl.fromTo(iconsRef.current?.children || [], 
@@ -38,47 +37,39 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Background image - Desktop */}
       <div 
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/og-image.png)',
         }}
       >
-        {/* Overlay sutil para melhorar legibilidade do texto */}
         <div className="absolute inset-0 bg-background/40" />
       </div>
 
-      {/* Background image - Mobile Principal */}
       <div 
         className="md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/homemobile.png)',
         }}
       >
-        {/* Overlay sutil para melhorar legibilidade do texto */}
         <div className="absolute inset-0 bg-background/40" />
       </div>
 
-      {/* Background image - Mobile Secundária (camada adicional se necessário) */}
       <div 
         className="md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat opacity-0"
         style={{
           backgroundImage: 'url(/homesecundarymobile.png)',
         }}
       >
-        {/* Overlay sutil para melhorar legibilidade do texto */}
         <div className="absolute inset-0 bg-background/40" />
       </div>
 
-      {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-destructive/5 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 text-center max-w-2xl mx-auto">
-        {/* Icons */}
         <div ref={iconsRef} className="flex items-center justify-center gap-4 mb-8">
           <div className="w-14 h-14 rounded-lg bg-secondary/90 backdrop-blur-sm border border-primary/30 flex items-center justify-center shadow-2xl">
             <Shield className="w-7 h-7 text-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" />
@@ -91,7 +82,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Title */}
         <h1
           ref={titleRef}
           className="font-medieval text-5xl md:text-6xl lg:text-7xl font-bold mb-4 relative"
@@ -114,7 +104,6 @@ const Home = () => {
           Cavaleiros do Caos
         </h1>
 
-        {/* Subtitle */}
         <p
           ref={subtitleRef}
           className="text-lg md:text-xl mb-12 max-w-md mx-auto px-4 py-2 rounded-lg"
@@ -135,7 +124,6 @@ const Home = () => {
           Gerencie a iniciativa do seu grupo de RPG com estilo medieval
         </p>
 
-        {/* CTA Button */}
         <Button
           ref={buttonRef}
           onClick={() => navigate('/tracker')}
@@ -150,7 +138,6 @@ const Home = () => {
         </Button>
       </div>
 
-      {/* Footer decoration */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
         <div className="flex items-center gap-2 text-sm px-4 py-2 rounded-lg backdrop-blur-sm bg-black/30">
           <div className="w-12 h-px bg-primary/50" />
